@@ -4,88 +4,303 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gecs time table</title>
+
+
+
+    <style>
+
+        /* removing all default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* light gray background for the whole page */
+        body {
+            background-color: #eef0f4;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            padding: 24px;
+
+            /* centering the box in the middle */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* the main white card that holds everything */
+        .main-box {
+            background-color: white;
+            width: 100%;
+            max-width: 1000px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.10);
+
+            /* so border radius shows on header too */
+            overflow: hidden;
+        }
+
+        /* dark blue top bar */
+        .top-header {
+            background-color: #1a2340;
+            color: white;
+            padding: 22px 32px;
+
+            /* logo and text side by side */
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* small icon box */
+        .header-logo {
+            width: 46px;
+            height: 46px;
+            background-color: rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            font-size: 22px;
+
+            /* centering the emoji */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* dont shrink it */
+            flex-shrink: 0;
+        }
+
+        /* college name big text */
+        .top-header h1 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* small subtitle text */
+        .top-header p {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.55);
+            margin-top: 2px;
+        }
+
+        /* area where the table lives */
+        .table-area {
+            padding: 24px 32px 20px;
+            overflow-x: auto;
+        }
+
+        /* the actual timetable */
+        .timetable {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+
+        /* all cells get a border */
+        .timetable th,
+        .timetable td {
+            border: 1.5px solid #e4e6ec;
+            padding: 10px 12px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* header row styling - dark blue like the top bar */
+        .timetable thead tr {
+            background-color: #1a2340;
+            color: white;
+        }
+
+        .timetable thead td {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* day column - slightly darker */
+        .timetable tbody td:first-child {
+            background-color: #f7f8fa;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #1a2340;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        /* normal data cells */
+        .timetable tbody td {
+            color: #333333;
+            background-color: white;
+            transition: background-color 0.15s;
+        }
+
+        /* hover effect on rows */
+        .timetable tbody tr:hover td {
+            background-color: #f0f3ff;
+        }
+
+        /* dont change color of day column on hover */
+        .timetable tbody tr:hover td:first-child {
+            background-color: #e8eaf0;
+        }
+
+        /* recess column special styling */
+        .recess-col {
+            background-color: #fff8e6 !important;
+            color: #b07800 !important;
+            font-weight: 600;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* special cells like LAB, SPORTS etc */
+        .timetable tbody td[colspan] {
+            background-color: #f0f3ff;
+            color: #1a2340;
+            font-weight: 500;
+        }
+
+        /* rounded bottom corners on table area */
+        .table-area {
+            padding-bottom: 24px;
+        }
+
+        /* print styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .main-box {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+            }
+            .top-header {
+                background-color: #1a2340 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .timetable thead tr {
+                background-color: #1a2340 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .bottom-footer {
+                background-color: #f7f8fa !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            /* hide button when printing */
+            .print-btn {
+                display: none;
+            }
+        }
+
+    </style>
 </head>
 <body>
-    
-<h1>Gecs time table</h1>
 
-    <table border="3px" cellpadding="10px" cellspacing="0"> 
-    <thead>
-    <tr>
-        <td>Day</td>
-        <td>Period 1 <br>10:00 AM - 11:00 AM</td>
-        <td>Period 2 <br>11:00 AM - 12:00 PM</td>
-        <td>Period 3 <br>12:00 PM - 1:00 PM</td>
-        <td>Recess <br>1:00 PM - 2 PM</td>
-        <td>Period 4 <br>2:00 PM - 3:00 PM</td>
-        <td>Period 5 <br>3:00 PM - 4:00 PM</td>
-        <td>Period 6 <br>4:00 PM - 5:00 PM</td>
-    </tr>
-    </thead>
-    <tbody>
-            <tr>
-        <td>Monday</td>
-        <td>IWD</td>
-        <td>PY</td>
-        <td>EC</td>
-        <td>RECESS</td>
-        <td colspan="2">Club Activity</td>
-        <td>SPORTS</td>
-    </tr>
+    <div class="main-box">
 
-    <tr>
-        <td>Tuesday</td>
-        <td>CE</td>
-        <td>IWD LAB (Room 7)</td>
-        <td>CE</td>
-        <td>RECESS</td>
-        <td>Maths-II</td>
-        <td>CE</td>
-        <td >SPORTS</td>
-    </tr>
+        <!-- top dark blue header bar -->
+        <div class="top-header">
+            <div class="header-logo">📅</div>
+            <div>
+                <h1>Government Engineering College, Sheikhpura</h1>
+                <p>Weekly Timetable — Semester I, 2025–26</p>
+            </div>
+        </div>
 
-    <tr>
-        <td>Wednesday</td>
-        <td>EC</td>
-        <td>PY</td>
-        <td>CE</td>
-        <td>RECESS</td>
-        <td colspan="2">EC LAB Group B <br> CE LAB Group A</td>
-        <td >SPORTS</td>
-    </tr>
+        <!-- table section -->
+        <div class="table-area">
+            <table class="timetable">
+                <thead>
+                    <tr>
+                        <td>Day</td>
+                        <td>Period 1 <br>10:00 – 11:00 AM</td>
+                        <td>Period 2 <br>11:00 AM – 12:00 PM</td>
+                        <td>Period 3 <br>12:00 – 1:00 PM</td>
+                        <td>Recess <br>1:00 – 2:00 PM</td>
+                        <td>Period 4 <br>2:00 – 3:00 PM</td>
+                        <td>Period 5 <br>3:00 – 4:00 PM</td>
+                        <td>Period 6 <br>4:00 – 5:00 PM</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Monday</td>
+                        <td>IWD</td>
+                        <td>PY</td>
+                        <td>EC</td>
+                        <td class="recess-col">RECESS</td>
+                        <td colspan="2">Club Activity</td>
+                        <td>SPORTS</td>
+                    </tr>
 
-    <tr>
-        <td>Thursday</td>
-        <td>Maths-II</td>
-        <td>EC</td>
-        <td>IWD</td>
-        <td>RECESS</td>
-        <td>REMEDIAL</td>
-        <td colspan="2">EC LAB GROUP A <br> CE LAB GROUP B</td>
-    </tr>
+                    <tr>
+                        <td>Tuesday</td>
+                        <td>CE</td>
+                        <td>IWD LAB <br><small>(Room 7)</small></td>
+                        <td>CE</td>
+                        <td class="recess-col">RECESS</td>
+                        <td>Maths-II</td>
+                        <td>CE</td>
+                        <td>SPORTS</td>
+                    </tr>
 
-    <tr>
-        <td>Friday</td>
-        <td>Maths-II</td>
-        <td>PY LAB (Room 109)</td>
-        <td>PY</td>
-        <td>RECESS</td>
-        <td colspan="2">MENTOR MEETING</td>
-        <td>SPORTS</td>
-    </tr>
-    
-    <tr>
-        <td>Saturday</td>
-        <td>IWD</td>
-        <td>Maths-II</td>
-        <td>REMEDIAL</td>
-        <td>RECESS</td>
-        <td colspan="2">LIBRARY</td>
-        <td >SPORTS</td>
-    </tr>
-    </tbody>
-    </table>
+                    <tr>
+                        <td>Wednesday</td>
+                        <td>EC</td>
+                        <td>PY</td>
+                        <td>CE</td>
+                        <td class="recess-col">RECESS</td>
+                        <td colspan="2">EC LAB Group B <br>CE LAB Group A</td>
+                        <td>SPORTS</td>
+                    </tr>
 
+                    <tr>
+                        <td>Thursday</td>
+                        <td>Maths-II</td>
+                        <td>EC</td>
+                        <td>IWD</td>
+                        <td class="recess-col">RECESS</td>
+                        <td>REMEDIAL</td>
+                        <td colspan="2">EC LAB Group A <br>CE LAB Group B</td>
+                    </tr>
+
+                    <tr>
+                        <td>Friday</td>
+                        <td>Maths-II</td>
+                        <td>PY LAB <br><small>(Room 109)</small></td>
+                        <td>PY</td>
+                        <td class="recess-col">RECESS</td>
+                        <td colspan="2">MENTOR MEETING</td>
+                        <td>SPORTS</td>
+                    </tr>
+
+                    <tr>
+                        <td>Saturday</td>
+                        <td>IWD</td>
+                        <td>Maths-II</td>
+                        <td>REMEDIAL</td>
+                        <td class="recess-col">RECESS</td>
+                        <td colspan="2">LIBRARY</td>
+                        <td>SPORTS</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </div>
 
 </body>
 </html>
