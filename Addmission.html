@@ -1,4 +1,293 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Form - GEC Sheikhpura</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #eef0f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .page {
+            background: #fff;
+            width: 100%;
+            max-width: 700px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+        }
+
+        .header {
+            background: #1a2340;
+            color: #fff;
+            padding: 22px 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            width: 46px;
+            height: 46px;
+            background: rgba(255,255,255,0.12);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .header p {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.55);
+            margin-top: 2px;
+        }
+
+        .body {
+            padding: 24px 32px 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 20px;
+        }
+
+        .full { grid-column: 1 / -1; }
+
+        .section-label {
+            grid-column: 1 / -1;
+            font-size: 0.62rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #1a2340;
+            margin-top: 8px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #e8eaf0;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        label {
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        input, select, textarea {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: #111;
+            background: #f7f8fa;
+            border: 1.5px solid #e4e6ec;
+            border-radius: 7px;
+            padding: 8px 11px;
+            outline: none;
+            width: 100%;
+            transition: border-color 0.15s, background 0.15s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #1a2340;
+            background: #fff;
+        }
+
+        select {
+            appearance: none;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%23999' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-color: #f7f8fa;
+            padding-right: 28px;
+        }
+
+        textarea { resize: none; height: 62px; }
+
+        .radio-row {
+            display: flex;
+            gap: 14px;
+            padding: 7px 0 2px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .radio-option input {
+            width: auto;
+            border: none;
+            padding: 0;
+            background: none;
+            accent-color: #1a2340;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding: 16px 32px;
+            background: #f7f8fa;
+            border-top: 1px solid #e8eaf0;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .note { font-size: 0.68rem; color: #aaa; }
+        .note a { color: #1a2340; text-decoration: none; font-weight: 500; }
+        .note a:hover { text-decoration: underline; }
+
+        button {
+            background: #1a2340;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 7px;
+            padding: 10px 26px;
+            cursor: pointer;
+            letter-spacing: 0.03em;
+            transition: background 0.15s, transform 0.1s;
+        }
+
+        button:hover { background: #283660; transform: translateY(-1px); }
+        button:active { transform: translateY(0); }
+
+        @media print {
+            body { background: #fff; padding: 0; }
+            .page { box-shadow: none; border-radius: 0; max-width: 100%; }
+            .header { background: #1a2340 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .footer { background: #f7f8fa !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            button { display: none; }
+            input, select, textarea { background: #f7f8fa !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <div class="logo">🎓</div>
+            <div>
+                <h1>Government Engineering College, Sheikhpura</h1>
+                <p>Admission Application Form — Academic Year 2025–26</p>
+            </div>
+        </div>
+
+        <div class="body">
+            <form action="#" method="post">
+                <div class="grid">
+
+                    <div class="section-label">Personal Information</div>
+
+                    <div class="field full">
+                        <label>Full Name</label>
+                        <input type="text" name="name" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="field">
+                        <label>Father's Name</label>
+                        <input type="text" name="father" placeholder="Father's full name" required>
+                    </div>
+
+                    <div class="field">
+                        <label>Mother's Name</label>
+                        <input type="text" name="mother" placeholder="Mother's full name" required>
+                    </div>
+
+                    <div class="field">
+                        <label>Date of Birth</label>
+                        <input type="date" name="dob" required>
+                    </div>
+
+                    <div class="field">
+                        <label>Gender</label>
+                        <div class="radio-row">
+                            <label class="radio-option"><input type="radio" name="gender" value="male" required> Male</label>
+                            <label class="radio-option"><input type="radio" name="gender" value="female"> Female</label>
+                            <label class="radio-option"><input type="radio" name="gender" value="other"> Other</label>
+                        </div>
+                    </div>
+
+                    <div class="field full">
+                        <label>Address</label>
+                        <textarea name="address" placeholder="Full residential address" required></textarea>
+                    </div>
+
+                    <div class="section-label">Contact Details</div>
+
+                    <div class="field">
+                        <label>Phone Number</label>
+                        <input type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required>
+                    </div>
+
+                    <div class="field">
+                        <label>Email Address</label>
+                        <input type="email" name="email" placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="section-label">Academic Details</div>
+
+                    <div class="field full">
+                        <label>Preferred Course</label>
+                        <select name="course" required>
+                            <option value="">— Select Branch —</option>
+                            <option value="civil">Civil Engineering</option>
+                            <option value="mechanical">Mechanical Engineering</option>
+                            <option value="electrical">Electrical Engineering</option>
+                            <option value="computer">Computer Science Engineering</option>
+                            <option value="electronics">Electronics Engineering</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Highest Qualification</label>
+                        <input type="text" name="qualification" placeholder="e.g. 12th / Diploma" required>
+                    </div>
+
+                    <div class="field">
+                        <label>Percentage / CGPA</label>
+                        <input type="text" name="marks" placeholder="e.g. 85% or 8.5" required>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        <div class="footer">
+            <span class="note">All fields are required &nbsp;·&nbsp; <a href="#" onclick="window.print(); return false;">🖨 Print Form</a></span>
+            <button type="submit">Submit Application</button>
+        </div>
+    </div>
+</body>
 </html>
